@@ -5,10 +5,10 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import StandardScaler
 import operator
 
-df = pd.read_excel('Cene stanova.xlsx')
+df = pd.read_excel('Data.xlsx')
 df = df.dropna(subset=['area'])
 df['price'] = df['price'].str.replace('€', '').str.replace('.', '')
-df['sq_meters'] = df['sq_meters'].str.replace(' m2', '').str.replace(',', '')
+df['sq_meters'] = df['sq_meters'].str.replace(' m2', '').str.replace(',', '.')
 df['room_number'] = df['room_number'].str.replace('+', '')
 df[['price', 'sq_meters', 'room_number']] = df[['price', 'sq_meters', 'room_number']].astype(float)
 df = df[df['price'] < 2000]
