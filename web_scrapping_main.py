@@ -52,6 +52,5 @@ df = pd.DataFrame({
     'room_number' : room_number,
     'price' : prices
 })
-df.to_excel('Cene stanova.xlsx', index=False)
+df.to_excel('Data.xlsx', index=False)
 print(df)
-print("GOTOVO!")
