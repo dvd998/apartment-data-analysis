@@ -8,7 +8,7 @@ import numpy as np
 area = []
 sq_meters = []
 room_number = []
-price = []
+prices = []
 for i in range(1, 31):
     webpage_response = requests.get("https://www.halooglasi.com/nekretnine/izdavanje-stanova/beograd?page=" + str(i))
 
@@ -28,15 +28,15 @@ for i in range(1, 31):
         driver.quit()
         soup1 = BeautifulSoup(html, 'html.parser')
         try: 
-            opstina = soup1.find(id='plh3').get_text(strip=True)
-            area.append(opstina)
+            city_area = soup1.find(id='plh3').get_text(strip=True)
+            area.append(city_area)
             print(opstina)
-            kvadratura = soup1.find(id='plh11').get_text(strip=True)
-            sq_meters.append(kvadratura)
-            broj_soba = soup1.find(id='plh12').get_text(strip=True)
-            room_number.append(broj_soba)
-            cena = soup1.find(id='plh6').get_text(strip=True)
-            price.append(cena)
+            sq_meter = soup1.find(id='plh11').get_text(strip=True)
+            sq_meters.append(sq_meter)
+            room = soup1.find(id='plh12').get_text(strip=True)
+            room_number.append(room)
+            price = soup1.find(id='plh6').get_text(strip=True)
+            prices.append(price)
         except:
             area.append(np.nan)
             sq_meters.append(np.nan)
@@ -50,7 +50,7 @@ df = pd.DataFrame({
     'area' : area,
     'sq_meters' : sq_meters,
     'room_number' : room_number,
-    'price' : price
+    'price' : prices
 })
 df.to_excel('Cene stanova.xlsx', index=False)
 print(df)
