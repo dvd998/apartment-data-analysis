@@ -35,6 +35,5 @@ for i in range(25, 150):
     index.append(i)
     print(f"Accuracy: {accuracy}")
 
-rezultat = dict(zip(index, accuracies))
-# print(max(rezultat))
-print(max(rezultat.items(), key=operator.itemgetter(1)))
+result = dict(zip(index, accuracies))
+print(max(result.items(), key=operator.itemgetter(1)))
