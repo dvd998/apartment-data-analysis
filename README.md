@@ -14,3 +14,4 @@ After data is collected, second part of projects is to take a look at the data.
 Cleaning and visualization are done with Pandas, Seaborn and matplotlib Python libraries.
 
 **3. Using machine learning models for predicting**
+Classification algorithms such as Random Forest, K-nearest neighbors and SVM (Support Vector Machine) are used to predict number of rooms for each apartment based on square meters and price.
