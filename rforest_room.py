@@ -33,6 +33,5 @@ for i in range(100, 3000, 100):
     print(acc)
     accuracies.append(acc)
 
-rezultat = dict(zip(index, accuracies))
-# print(max(rezultat))
-print(max(rezultat.items(), key=operator.itemgetter(1)))
+result = dict(zip(index, accuracies))
+print(max(result.items(), key=operator.itemgetter(1)))
