@@ -4,6 +4,7 @@ from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import StandardScaler
 import operator
+#As only square meters and price have impactful correlation with number of rooms, only they will be used for room_number prediction
 
 df = pd.read_excel('Processed data 26.11.2023..xlsx')
 df['room_groups'] = df['room_number'].apply(lambda x: '<2.5' if x < 2.5 else ('<4.5' if x < 4.5 else '4.5+'))
@@ -26,6 +27,5 @@ for i in range(100, 1500, 100):
     print(acc)
     accuracies.append(acc)
 
-rezultat = dict(zip(index, accuracies))
-# print(max(rezultat))
-print(max(rezultat.items(), key=operator.itemgetter(1)))
+result = dict(zip(index, accuracies))
+print(max(result.items(), key=operator.itemgetter(1)))
