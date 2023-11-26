@@ -15,3 +15,4 @@ Cleaning and visualization are done with Pandas, Seaborn and matplotlib Python l
 
 **3. Using machine learning models for predicting**
 Classification algorithms such as Random Forest, K-nearest neighbors and SVM (Support Vector Machine) are used to predict number of rooms for each apartment based on square meters and price.
+Regression models such as Multiple Linear Regression and Random Forest Regression are used to predict rent price of appartments.
