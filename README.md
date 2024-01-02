@@ -1,5 +1,5 @@
 # apartment-data-analysis
-Web scrapping of apartment rental website in Serbia and data analysis.
+Web scrapping of apartment rental website in Serbia and data analysis using Python.
 
 This projects consist of three parts:
 
