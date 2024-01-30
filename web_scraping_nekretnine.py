@@ -11,8 +11,13 @@ prices = []
 heatings = []
 floors = []
 total_floors = []
+
+
 for i in range(1, 31):
-    url = "https://www.nekretnine.rs/stambeni-objekti/stanovi/izdavanje-prodaja/izdavanje/grad/beograd/cena/1_1500/lista/po-stranici/10/" + str(i) + "/"
+    if i == 1:
+        url = "https://www.nekretnine.rs/stambeni-objekti/stanovi/izdavanje-prodaja/izdavanje/grad/beograd/cena/1_1500/lista/po-stranici/10/"
+    else:
+        url = "https://www.nekretnine.rs/stambeni-objekti/stanovi/izdavanje-prodaja/izdavanje/grad/beograd/cena/1_1500/lista/po-stranici/10/stranica/" + str(i) + "/"
     result = requests.get(url)
     doc = BeautifulSoup(result.text, 'html.parser')
 
@@ -24,7 +29,6 @@ for i in range(1, 31):
             href_value = link_element.get('href')
             print(href_value)
             hrefs.append(href_value)
-        # print(str(element.text).strip().lower().replace(" ", "-").replace(",", "-").replace("/", "-"))
  
     for link in hrefs:
         url_app = "https://www.nekretnine.rs" + link
