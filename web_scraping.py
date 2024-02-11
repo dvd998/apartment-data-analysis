@@ -5,6 +5,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 import numpy as np
+from datetime import *
 
 areas = []
 sq_meters = []
@@ -13,7 +14,7 @@ prices = []
 heatings = []
 floors = []
 total_floors = []
-for i in range(1, 31):
+for i in range(1, 21):
     url = "https://www.halooglasi.com/nekretnine/izdavanje-stanova/beograd?cena_d_from=250&cena_d_to=1500&cena_d_unit=4&page=" + str(i)
     driver = webdriver.Chrome()
     driver.get(url)
@@ -69,5 +70,6 @@ df = pd.DataFrame({
     'floor' : floors,
     'total_floors' : total_floors
 })
-df.to_excel('Data 04.01.2024..xlsx', index=False)
+today = today = datetime.now().strftime("%d.%m.%y.")
+df.to_excel(f'Data {today}.xlsx', index=False)
 print(df)
