@@ -71,6 +71,6 @@ df = pd.DataFrame({
     'floor' : floors,
     'total_floors' : total_floors
 })
-today = today = datetime.now().strftime("%d.%m.%y.")
+today = datetime.now().strftime("%d.%m.%y.")
 df.to_excel(f'Excel_files\\Data {today}.xlsx', index=False)
 print(df)
