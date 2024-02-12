@@ -1,5 +1,6 @@
+
+### Webscraping of https://www.halooglasi.com/ ###
 from bs4 import BeautifulSoup
-import requests
 import pandas as pd
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -71,5 +72,5 @@ df = pd.DataFrame({
     'total_floors' : total_floors
 })
 today = today = datetime.now().strftime("%d.%m.%y.")
-df.to_excel(f'Data {today}.xlsx', index=False)
+df.to_excel(f'Excel_files\\Data {today}.xlsx', index=False)
 print(df)

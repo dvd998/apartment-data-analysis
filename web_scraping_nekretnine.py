@@ -3,6 +3,7 @@
 import pandas as pd
 from bs4 import BeautifulSoup
 import requests
+from datetime import *
 
 areas = []
 sq_meters = []
@@ -66,5 +67,6 @@ df = pd.DataFrame({
     'floor' : floors,
     'total_floors' : total_floors
 })
-df.to_excel('Data nekretnine.xlsx', index=False)
+today = today = datetime.now().strftime("%d.%m.%y.")
+df.to_excel(f'Excel_files\\Data nekretnine {today}.xlsx', index=False)
 print(df)
