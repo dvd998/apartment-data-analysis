@@ -13,7 +13,7 @@ heatings = []
 floors = []
 total_floors = []
 
-
+# Loop through first 30 pages
 for i in range(1, 31):
     if i == 1:
         url = "https://www.nekretnine.rs/stambeni-objekti/stanovi/izdavanje-prodaja/izdavanje/grad/beograd/cena/1_1500/lista/po-stranici/10/"
@@ -22,6 +22,7 @@ for i in range(1, 31):
     result = requests.get(url)
     doc = BeautifulSoup(result.text, 'html.parser')
 
+    # Find all apartment links to loop through
     elements_with_class = doc.find_all(class_ = "offer-title text-truncate w-100")
     hrefs = []
     for element in elements_with_class:
@@ -30,7 +31,8 @@ for i in range(1, 31):
             href_value = link_element.get('href')
             print(href_value)
             hrefs.append(href_value)
- 
+            
+    # Gathering data for all aparments
     for link in hrefs:
         url_app = "https://www.nekretnine.rs" + link
         res = requests.get(url_app)
