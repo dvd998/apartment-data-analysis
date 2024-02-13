@@ -4,7 +4,7 @@ Web scrapping of apartment rental website in Serbia and data analysis using Pyth
 This projects consist of three parts:
 
 **1. Web scrapping**
-Using Python libraries Selenium and BeautifulSoup, this part of project is about getting data from one of most visited website for apartment rental in Belgrade, https://www.halooglasi.com/nekretnine/izdavanje-stanova/.
+Using Python libraries Selenium and BeautifulSoup, this part of project is about getting data from one of most visited websites for apartment rental in Belgrade, https://www.halooglasi.com/nekretnine/izdavanje-stanova/ and https://www.nekretnine.rs/stambeni-objekti/stanovi
 Loop is created to gather apartment data for first 30 pages of the website, on each page there are 20 apartments.
 Data that is being collected: area (city area where apartment is located), square meters of apartment, number of rooms and price (monthly fee for renting).
 Data is structured as pandas DataFrame and saved as an excel file.
