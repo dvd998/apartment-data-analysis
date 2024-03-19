@@ -1,76 +1,54 @@
 
-### Webscraping of https://www.halooglasi.com/ ###
+# ### Webscraping of https://www.halooglasi.com/ ###
 from bs4 import BeautifulSoup
 import pandas as pd
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 import numpy as np
-from datetime import *
+from datetime import datetime
 
-areas = []
-sq_meters = []
-room_numbers = []
-prices = []
-heatings = []
-floors = []
-total_floors = []
-for i in range(1, 21):
-    url = "https://www.halooglasi.com/nekretnine/izdavanje-stanova/beograd?cena_d_from=250&cena_d_to=1500&cena_d_unit=4&page=" + str(i)
-    driver = webdriver.Chrome()
+# Function to scrape individual page
+def scrape_page(url, driver):
     driver.get(url)
     product_titles = driver.find_elements(By.CLASS_NAME, 'product-title')
     href_texts = [product_title.find_element(By.TAG_NAME, 'a').get_attribute('href') for product_title in product_titles]
+    data = []
     for href_text in href_texts:
         driver.get(href_text)
         html = driver.page_source
         soup1 = BeautifulSoup(html, 'html.parser')
-        try: 
-            area = soup1.find(id='plh3').get_text(strip=True)
-            areas.append(area)
-        except:
-            areas.append(np.nan)
-        try:
-            sq_meter = soup1.find(id='plh11').get_text(strip=True)
-            sq_meters.append(sq_meter)
-        except:
-            sq_meters.append(np.nan)
-        try:
-            room_number = soup1.find(id='plh12').get_text(strip=True)
-            room_numbers.append(room_number)
-        except:
-            room_numbers.append(np.nan)
-        try:
-            price = soup1.find(id='plh6').get_text(strip=True)
-            prices.append(price)
-        except:
-            prices.append(np.nan)
-        try:
-            heat = soup1.find(id='plh17').get_text(strip=True)
-            heatings.append(heat)
-        except:
-            heatings.append(np.nan)
-        try:
-            floor = soup1.find(id='plh18').get_text(strip=True)
-            floors.append(floor)
-        except:
-            floors.append(np.nan)
-        try:
-            total_floor = soup1.find(id='plh19').get_text(strip=True)
-            total_floors.append(total_floor)
-        except:
-            total_floors.append(np.nan)
+        area = soup1.find(id='plh3').get_text(strip=True) if soup1.find(id='plh3') else np.nan
+        sq_meter = soup1.find(id='plh11').get_text(strip=True) if soup1.find(id='plh11') else np.nan
+        room_number = soup1.find(id='plh12').get_text(strip=True) if soup1.find(id='plh12') else np.nan
+        price = soup1.find(id='plh6').get_text(strip=True) if soup1.find(id='plh6') else np.nan
+        heat = soup1.find(id='plh17').get_text(strip=True) if soup1.find(id='plh17') else np.nan
+        floor = soup1.find(id='plh18').get_text(strip=True) if soup1.find(id='plh18') else np.nan
+        total_floor = soup1.find(id='plh19').get_text(strip=True) if soup1.find(id='plh19') else np.nan
+        data.append({'area': area, 'sq_meters': sq_meter, 'room_number': room_number, 'price': price, 'heating': heat, 'floor': floor, 'total_floors': total_floor})
+        print(data)
+    return data
+
+def main():
+    # Initialize webdriver
+    options = Options()
+    options.headless = True
+    driver = webdriver.Chrome(options=options)
+
+    # Scrape multiple pages
+    data = []
+    num_pages = 20  # You can also dynamically determine this
+    for i in range(1, num_pages + 1):
+        url = f"https://www.halooglasi.com/nekretnine/izdavanje-stanova/beograd?cena_d_from=250&cena_d_to=1500&cena_d_unit=4&page={i}"
+        data += scrape_page(url, driver)
+
     driver.quit()
 
-df = pd.DataFrame({
-    'area' : areas,
-    'sq_meters' : sq_meters,
-    'room_number' : room_numbers,
-    'price' : prices,
-    'heating' : heatings,
-    'floor' : floors,
-    'total_floors' : total_floors
-})
-today = datetime.now().strftime("%d.%m.%y.")
-df.to_excel(f'Excel_files\\Data {today}.xlsx', index=False)
-print(df)
+    # Create DataFrame and save to Excel
+    df = pd.DataFrame(data)
+    today = datetime.now().strftime("%d.%m.%y.")
+    df.to_excel(f'Excel_files\\Data {today}.xlsx', index=False)
+    print(df)
+
+if __name__ == "__main__":
+    main()
