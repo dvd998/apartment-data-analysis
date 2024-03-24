@@ -9,6 +9,7 @@ def fetch_apartment_links(url):
     result = requests.get(url)
     doc = BeautifulSoup(result.text, 'html.parser')
     links = [link.get('href') for link in doc.select('.offer-title.text-truncate.w-100 a')]
+
     return links
 
 def scrape_apartment_data(url):
@@ -21,6 +22,7 @@ def scrape_apartment_data(url):
     heating = soup.find(lambda tag: tag.name == 'span' and "Grejanje:" in tag.text).find_next('br').next_sibling.get_text(strip=True)
     floor_text = soup.find(lambda tag: tag.name == 'span' and "Sprat:" in tag.text).find_next('br').next_sibling.get_text(strip=True).split("/")
     floor, total_floor = floor_text if len(floor_text) == 2 else (None, None)
+
     return {'area': area, 'sq_meters': sq_meter, 'room_number': room_num, 'price': price, 'heating': heating, 'floor': floor, 'total_floors': total_floor}
 
 def scrape_data():
@@ -37,6 +39,7 @@ def scrape_data():
             heatings.append(apartment_data['heating'])
             floors.append(apartment_data['floor'])
             total_floors.append(apartment_data['total_floors'])
+            
     return pd.DataFrame({'area': areas, 'sq_meters': sq_meters, 'room_number': room_numbers, 'price': prices, 'heating': heatings, 'floor': floors, 'total_floors': total_floors})
 
 if __name__ == "__main__":

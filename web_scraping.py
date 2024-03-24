@@ -37,7 +37,7 @@ def main():
 
     # Scrape multiple pages
     data = []
-    num_pages = 20  # You can also dynamically determine this
+    num_pages = 20
     for i in range(1, num_pages + 1):
         url = f"https://www.halooglasi.com/nekretnine/izdavanje-stanova/beograd?cena_d_from=250&cena_d_to=1500&cena_d_unit=4&page={i}"
         data += scrape_page(url, driver)
