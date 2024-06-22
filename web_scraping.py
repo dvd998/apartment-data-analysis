@@ -21,6 +21,7 @@ def scrape_page(url, driver):
         area = soup1.find(id='plh3').get_text(strip=True) if soup1.find(id='plh3') else np.nan
         sq_meter = soup1.find(id='plh11').get_text(strip=True) if soup1.find(id='plh11') else np.nan
         room_number = soup1.find(id='plh12').get_text(strip=True) if soup1.find(id='plh12') else np.nan
+        #lux = soup1.find(id='plh15').get_text(strip=True) if soup1.find(id='plh15') else "non lux"
         price = soup1.find(id='plh6').get_text(strip=True) if soup1.find(id='plh6') else np.nan
         heat = soup1.find(id='plh17').get_text(strip=True) if soup1.find(id='plh17') else np.nan
         floor = soup1.find(id='plh18').get_text(strip=True) if soup1.find(id='plh18') else np.nan
