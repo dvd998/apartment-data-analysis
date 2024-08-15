@@ -21,31 +21,29 @@ def scrape_page(url, driver):
         area = soup1.find(id='plh3').get_text(strip=True) if soup1.find(id='plh3') else np.nan
         sq_meter = soup1.find(id='plh11').get_text(strip=True) if soup1.find(id='plh11') else np.nan
         room_number = soup1.find(id='plh12').get_text(strip=True) if soup1.find(id='plh12') else np.nan
-        #lux = soup1.find(id='plh15').get_text(strip=True) if soup1.find(id='plh15') else "non lux"
+        #lux = soup1.find(id='plh15').get_text(strip=True) if soup1.find(id='plh15') else np.nan
         price = soup1.find(id='plh6').get_text(strip=True) if soup1.find(id='plh6') else np.nan
         heat = soup1.find(id='plh17').get_text(strip=True) if soup1.find(id='plh17') else np.nan
         floor = soup1.find(id='plh18').get_text(strip=True) if soup1.find(id='plh18') else np.nan
-        total_floor = soup1.find(id='plh19').get_text(strip=True) if soup1.find(id='plh19') else np.nan
-        data.append({'area': area, 'sq_meters': sq_meter, 'room_number': room_number, 'price': price, 'heating': heat, 'floor': floor, 'total_floors': total_floor})
+        #total_floor = soup1.find(id='plh19').get_text(strip=True) if soup1.find(id='plh19') else np.nan
+        data.append({'area': area, 'sq_meters': sq_meter, 'room_number': room_number, 'price': price, 'heating': heat, 'floor': floor}) #, 'total_floors': total_floor
         print(data)
     return data
 
 def main():
-    # Initialize webdriver
     options = Options()
-    options.headless = True
+    options.add_argument("--headless=new")
     driver = webdriver.Chrome(options=options)
 
-    # Scrape multiple pages
     data = []
-    num_pages = 20
+    num_pages = 30
     for i in range(1, num_pages + 1):
+        print(f"Currently at page: {i}")
         url = f"https://www.halooglasi.com/nekretnine/izdavanje-stanova/beograd?cena_d_from=250&cena_d_to=1500&cena_d_unit=4&page={i}"
         data += scrape_page(url, driver)
 
     driver.quit()
 
-    # Create DataFrame and save to Excel
     df = pd.DataFrame(data)
     today = datetime.now().strftime("%d.%m.%y.")
     df.to_excel(f'Excel_files\\Data {today}.xlsx', index=False)
